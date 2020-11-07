@@ -94,4 +94,22 @@ public class Registration {
             return responseArticleResponseEntity;
         }
     }
+    
+    @GetMapping("/approvestatuses/{requestId}")
+    public ResponseEntity<RequestDetails> approveStatuses(@PathParam("requestId") int requestId){
+        int id = Integer.valueOf(requestId);
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(1);
+        userEntity.setName("TestName");
+        boolean exists = requestRepository.existsById(id);
+        if(exists){
+            Optional<RequestStatusEntity> userEntityOptional = requestRepository.findById(id);
+            //todo
+            }else{
+                ResponseEntity<RequestDetails> responseArticleResponseEntity = new ResponseEntity<RequestDetails>(HttpStatus.NOT_FOUND);
+                return responseArticleResponseEntity;
+            }
+        return null;
+        }
+    
 }
