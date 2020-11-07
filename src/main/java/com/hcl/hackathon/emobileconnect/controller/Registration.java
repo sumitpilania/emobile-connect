@@ -14,19 +14,14 @@ import java.util.UUID;
 public class Registration {
 
     @Autowired
-    UserEntity userEntity;
-
-    @Autowired
     UserRepository userRepository;
 
     @PostMapping("/newrequest")
     public void newConnection(@RequestBody User user){
 
-        //userEntity.setRequestId(new UUID().toString());
+        UserEntity userEntity = new UserEntity();
         userEntity.setId(1);
-        userEntity.setName(user.getName());
-
-
+        userEntity.setName("TestName");
         userRepository.save(userEntity);
     }
 
