@@ -1,9 +1,15 @@
 package com.hcl.hackathon.emobileconnect.entity;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
+
+
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+
+
 
 @Entity
 @Table(name = "requestUserMapping")
@@ -12,60 +18,75 @@ public class RequestStatusEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "requestId", updatable = false, nullable = false)
-    private Integer requestId;
+    private int requestId;
+
 
 
     @Column(name = "userid")
-    Integer userId;
-
+    int userId;
     @Column
     String assignedNumber;
-
     @Column
     String status;
+
+
 
     public RequestStatusEntity() {
     }
 
-    public Integer getRequestId() {
+
+
+    public int getRequestId() {
         return requestId;
     }
 
-    public void setRequestId(Integer requestId) {
+
+
+    public void setRequestId(int requestId) {
         this.requestId = requestId;
     }
 
-    public Integer getUserId() {
+
+
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+
+
+    public void setUserId(int userId) {
         this.userId = userId;
     }
+
+
 
     public String getAssignedNumber() {
         return assignedNumber;
     }
 
+
+
     public void setAssignedNumber(String assignedNumber) {
         this.assignedNumber = assignedNumber;
     }
+
+
 
     public String getStatus() {
         return status;
     }
 
+
+
     public void setStatus(String status) {
         this.status = status;
     }
 
+
+
     @Override
     public String toString() {
-        return "RequestStatus{" +
-                "requestId=" + requestId +
-                ", userId=" + userId +
-                ", assignedNumber='" + assignedNumber + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+        return "RequestStatus{" + "requestId=" + requestId + ", userId=" + userId + ", assignedNumber='"
+                + assignedNumber + '\'' + ", status='" + status + '\'' + '}';
     }
 }
