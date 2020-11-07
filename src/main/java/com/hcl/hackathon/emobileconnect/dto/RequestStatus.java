@@ -1,4 +1,4 @@
-package com.hcl.hackathon.emobileconnect.models;
+package com.hcl.hackathon.emobileconnect.dto;
 
 public enum RequestStatus {
     InProgress,

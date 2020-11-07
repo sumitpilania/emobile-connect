@@ -4,9 +4,9 @@ import com.hcl.hackathon.emobileconnect.dao.RequestRepository;
 import com.hcl.hackathon.emobileconnect.dao.UserRepository;
 import com.hcl.hackathon.emobileconnect.entity.RequestStatusEntity;
 import com.hcl.hackathon.emobileconnect.entity.UserEntity;
-import com.hcl.hackathon.emobileconnect.models.RequestDetails;
-import com.hcl.hackathon.emobileconnect.models.RequestStatus;
-import com.hcl.hackathon.emobileconnect.models.User;
+import com.hcl.hackathon.emobileconnect.dto.RequestDetails;
+import com.hcl.hackathon.emobileconnect.dto.RequestStatus;
+import com.hcl.hackathon.emobileconnect.dto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
 import java.util.Optional;
 
 
@@ -60,20 +59,16 @@ public class Registration {
 
     @GetMapping("/trackrequest/{requestId}")
     @Transactional
-    public ResponseEntity<RequestDetails> trackRequest(@PathParam("requestId") int requestId){
-
+    public ResponseEntity<RequestDetails> trackRequest(@PathVariable("requestId") Integer requestId){
+        logger.info("request for request Id : "+requestId);
         int id = Integer.valueOf(requestId);
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(1);
-        userEntity.setName("TestName");
         boolean exists = requestRepository.existsById(id);
         if(exists){
             Optional<RequestStatusEntity> userEntityOptional = requestRepository.findById(id);
             if(userEntityOptional.isPresent()){
                 RequestStatusEntity requestStatus = userEntityOptional.get();
                 logger.info(requestStatus.toString());
-                RequestDetails requestDetails = new RequestDetails();
-                requestDetails.setStatus(RequestStatus.valueOf(requestStatus.getStatus()));
+
                 Optional<UserEntity> userById = userRepository.findById(requestStatus.getUserId());
                 UserEntity userEntity1 = userById.get();
                 logger.info(userEntity1.toString());
@@ -82,6 +77,9 @@ public class Registration {
                 user.setAdhaar(userEntity1.getAdhaar());
                 user.setEmail(userEntity1.getEmail());
                 user.setExistingNo(userEntity1.getExistingno());
+
+                RequestDetails requestDetails = new RequestDetails();
+                requestDetails.setStatus(RequestStatus.valueOf(requestStatus.getStatus()));
                 requestDetails.setUser(user);
                 ResponseEntity<RequestDetails> responseArticleResponseEntity = new ResponseEntity<RequestDetails>(requestDetails, HttpStatus.CREATED);
                 return responseArticleResponseEntity;
@@ -94,4 +92,22 @@ public class Registration {
             return responseArticleResponseEntity;
         }
     }
+    
+    @GetMapping("/approvestatuses/{requestId}")
+    public ResponseEntity<RequestDetails> approveStatuses(@PathParam("requestId") int requestId){
+        int id = Integer.valueOf(requestId);
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(1);
+        userEntity.setName("TestName");
+        boolean exists = requestRepository.existsById(id);
+        if(exists){
+            Optional<RequestStatusEntity> userEntityOptional = requestRepository.findById(id);
+            //todo
+            }else{
+                ResponseEntity<RequestDetails> responseArticleResponseEntity = new ResponseEntity<RequestDetails>(HttpStatus.NOT_FOUND);
+                return responseArticleResponseEntity;
+            }
+        return null;
+        }
+    
 }
