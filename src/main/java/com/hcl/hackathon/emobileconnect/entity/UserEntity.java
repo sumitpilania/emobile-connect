@@ -10,10 +10,28 @@ import javax.persistence.*;
 public class UserEntity {
 
     @Id
-    int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private int id;
 
     @Column
     String name;
+
+    @Column
+    String existingno;
+
+    @Column
+    String email;
+
+    @Column
+    int age;
+
+    @Column
+    String adhaar;
+
+    @Column
+    String address;
+
 
     public UserEntity() {
     }
@@ -32,6 +50,46 @@ public class UserEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getExistingno() {
+        return existingno;
+    }
+
+    public void setExistingno(String existingno) {
+        this.existingno = existingno;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getAdhaar() {
+        return adhaar;
+    }
+
+    public void setAdhaar(String adhaar) {
+        this.adhaar = adhaar;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
 }
